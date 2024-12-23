@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body{
+    margin: 0%;
+    padding: 0%;
+    height: 100vh;
+    background-image: url("https://www.abt.bank/wp-content/uploads/2020/02/Farmerhandshake-graphic-1080x621.png");
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+   
+}
+        /* Styling for the cart sidebar */
+        #cartSidebar {
+            position: fixed;
+            left: -350px;
+            top: 0;
+            height: 100%;
+            width: 350px;
+            background-color: #f8f9fa;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            padding: 15px;
+            transition: left 0.3s;
+            z-index: 1050;
+        }
+
+        #cartSidebar.open {
+            left: 0;
+        }
+
+        #cartTotal {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+/* Card Styling - Small Box */
+.card {
+    max-width: 300px; /* Restricts card width */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 10px auto; /* Center card and add spacing */
+    padding: 10px; /* Internal spacing */
+    background-color: #fff; /* White background */
+}
+
+/* Flexbox Layout for Card Body */
+.card-body {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center align content horizontally */
+    justify-content: center;
+    gap: 8px; /* Spacing between items */
+    padding: 10px;
+}
+
+/* Flex Item Styling */
+.flex-item {
+    width: 100%; /* Full width for small box */
+    text-align: center; /* Center align text */
+    font-size: 14px; /* Smaller font */
+    color: #333; /* Dark gray text */
+}
+
+/* Buttons Container */
+.button-group {
+    display: flex;
+    flex-direction: row; /* Align buttons in a row */
+    gap: 5px; /* Space between buttons */
+    margin-top: 8px; /* Space above buttons */
+}
+
+/* Button Styling - Small Buttons */
+.btn {
+    font-size: 12px; /* Smaller text */
+    padding: 5px 8px; /* Reduced button padding */
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 45%;
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Red */
+    color: #fff;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Blue */
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Navbar Styling */
+nav.navbar {
+   /* background-color: #97d799; */
+  margin-bottom: 15px; 
+}
+
+nav.navbar .container {
+    display: flex;
+    justify-content: space-between;  /* Align logo and navbar links in a straight line */
+    align-items: center;  /* Center items vertically */
+}
+
+nav.navbar .navbar-brand img {
+    width: 80px;
+}
+
+nav.navbar .navbar-nav {
+    display: flex;
+    justify-content: flex-end;  /* Align navbar links to the right */
+    gap: 20px; 
+    flex-direction: row; /* Add spacing between links */
+}
+
+
+nav.navbar .navbar-nav .nav-link {
+    color: #000 !important; /* Black color */
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 12px 20px;
+    text-decoration:none; /* Add underline */
+    transition: color 0.3s ease;
+    /* background-color: #ffffff; */
+    border-radius: 10px;
+}
+
+nav.navbar .navbar-nav .nav-link:hover {
+    color: #4CAF50 !important; /* Green color on hover */
+    text-decoration: none; /* Remove underline on hover */
+}
+.gr1{
+    font-family: 'Lobster', cursive;
+    font-size: 4rem;
+    font-weight: bold;
+    color: rgb(250, 250, 250);
+    margin-bottom: 15px;
+    margin-top: 35px;
+    text-shadow: 2px 2px 4px rgba(78, 255, 87, 0.7);
+    padding-left:30% ;
+}
+.gr{
+    font-family: 'Lobster', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(250, 250, 250);
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(78, 255, 87, 0.7);
+    padding-left: 35%;
+}
+.bg-img {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    }
+    </style>
+</head>
+<body>
+    <div class="main">
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img class="img-responsive" src="https://cdn0.iconfinder.com/data/icons/smart-farm-flat-agriculture-technology/512/Smart_sensor-1024.png" alt="Logo">
+            </a>
+            <ul class="navbar-nav">
+                <li><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                
+           <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('community') }}">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('chatbox') }}">Farm Assist</a>
+          </li>
+         
+<li class="nav-item">
+            <a class="nav-link" href="{{ url_for('pest_detection') }}">Pest Detection and Crop Recommendation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('services') }}">Services</a>
+          </li>        
+            </ul>
+        </div>
+    </nav>
+
+    <!-- <div class="container mt-4">    <div class="bg-img" style="background-image: url('https://www.abt.bank/wp-content/uploads/2020/02/Farmerhandshake-graphic-1080x621.png');"> -->
+        <h1 class="gr1">Connect to Collect</h1>
+        <p class="gr">"Love plants, share extras, and spread joy!</p>
+    <div class="box">  
+        <!-- Button to trigger modal -->
+         <div class="addp">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
+         </div>
+        <!-- Product List -->
+        <div class="mt-4">
+            <div id="productList">
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="addProductForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="productName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productQuantity" class="form-label">Quantity</label>
+                            <input type="text" class="form-control" id="productQuantity" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productPrice" class="form-label">Price (₹)</label>
+                            <input type="text" class="form-control" id="productPrice" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productLocation" class="form-label">Location/Address</label>
+                            <input type="text" class="form-control" id="productLocation" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="productDescription" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Post</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar">
+        <h4>Shopping Cart</h4>
+        <ul id="cartItems" class="list-group mb-3"></ul>
+        <div id="cartTotal" class="text-end">Total: ₹0</div>
+        <button class="btn btn-danger w-100 mt-3" onclick="closeCart()">Close Cart</button>
+        <button class="btn btn-success w-100 mt-3" data-bs-toggle="modal" data-bs-target="#paymentModal">Proceed to Buy</button>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Choose Payment Method</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-primary w-100 mb-2">UPI Payment</button>
+                    <button class="btn btn-warning w-100">Cash on Delivery</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const productList = document.getElementById("productList");
+        const addProductForm = document.getElementById("addProductForm");
+        const cartSidebar = document.getElementById("cartSidebar");
+        const cartItems = document.getElementById("cartItems");
+        const cartTotal = document.getElementById("cartTotal");
+
+        let totalCost = 0;
+        let cart = [];
+
+        addProductForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            // Get form values
+            const name = document.getElementById("productName").value;
+            const quantity = parseInt(document.getElementById("productQuantity").value);
+            const price = parseFloat(document.getElementById("productPrice").value);
+            const location = document.getElementById("productLocation").value;
+            const description = document.getElementById("productDescription").value;
+
+            // Create new product card
+            const productCard = document.createElement("div");
+            productCard.className = "card mt-3";
+       productCard.innerHTML = `
+    <div class="card-body d-flex justify-content-between align-items-center flex-wrap">
+        <!-- Product Name -->
+        <div class="flex-item w-100 text-center mb-2">
+            <h5 class="card-title"><strong>Product Name:</strong> ${name}</h5>
+        </div>
+
+        <!-- Product Details -->
+        <div class="flex-item">
+            <p class="card-text"><strong>Quantity:</strong> ${quantity}</p>
+        </div>
+        <div class="flex-item">
+            <p class="card-text"><strong>Price:</strong> ₹${price}</p>
+        </div>
+        <div class="flex-item">
+            <p class="card-text"><strong>Location:</strong> ${location}</p>
+        </div>
+        <div class="flex-item">
+            <p class="card-text"><strong>Description:</strong> ${description}</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex flex-column gap-2">
+            <button class="btn btn-danger remove-btn" onclick="removeProduct(this)">Remove</button>
+            <button class="btn btn-primary buy-btn" data-name="${name}" data-price="${price}">Buy</button>
+        </div>
+    </div>
+`;
+
+            // Append product card to list
+            productList.appendChild(productCard);
+
+            // Clear modal form
+            addProductForm.reset();
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById("addProductModal"));
+            modal.hide();
+        });
+
+        productList.addEventListener("click", (event) => {
+            if (event.target.classList.contains("buy-btn")) {
+                const name = event.target.getAttribute("data-name");
+                const price = parseFloat(event.target.getAttribute("data-price"));
+
+                // Add item to cart
+                const cartItem = document.createElement("li");
+                cartItem.className = "list-group-item d-flex justify-content-between align-items-center cart-item";
+                cartItem.innerHTML = `
+                    ${name} <span>₹${price}</span>
+                    <button class="btn btn-danger btn-sm ms-2" onclick="removeFromCart(this, ${price})">Remove</button>
+                `;
+                cartItems.appendChild(cartItem);
+
+                // Update total
+                totalCost += price;
+                cartTotal.textContent = `Total: ₹${totalCost}`;
+
+                // Add to cart array
+                cart.push({ name, price });
+
+                // Open cart
+                cartSidebar.classList.add("open");
+            }
+        });
+
+        function removeProduct(button) {
+            // Remove the product from the product list
+            button.closest(".card").remove();
+        }
+
+        function removeFromCart(button, price) {
+            // Remove item from the cart list and update the total
+            button.parentElement.remove();
+            totalCost -= price;
+            cartTotal.textContent = `Total: ₹${totalCost}`;
+
+            // Remove item from cart array
+            cart = cart.filter(item => item.price !== price);
+        }
+
+        function closeCart() {
+            // Close the cart sidebar
+            cartSidebar.classList.remove("open");
+        }
+    </script>
+</body>
+</html>
+
+
